@@ -23,7 +23,6 @@ export default {
 	},
 	watch: {
 		// dataRange(val) {
-			
 		// }
 	}
 };

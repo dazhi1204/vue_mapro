@@ -264,8 +264,8 @@ export default {
 						}
 						//正在移动
 						me._marker.setPosition(pos);
-						//设置自定义overlay的位置
-						me._setInfoWin(pos);
+						
+						
 					}
 				}, timer);
 			};
@@ -291,10 +291,10 @@ export default {
 		//优先加载地图
 		setTimeout(() => {
 			this.getHeatmap();
-		}, 200);
+		}, 2000);
 		setTimeout(() => {
 			this.getPath();
-		}, 200);
+		}, 2000);
 	}
 };
 </script>
