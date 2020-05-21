@@ -4,7 +4,8 @@ export default {
 		input: '',
 		dateTime: '',
 		Hour: '',
-		period: ''
+		period: '',
+		status:false
 
 	},
 	mutations: {
@@ -22,6 +23,9 @@ export default {
 		},
 		SET_PERIOD(state, val) {
 			state.period = val
+		},
+		SET_STATUS(state, val) {
+			state.status = val
 		}
 	}
 }

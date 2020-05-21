@@ -6,7 +6,7 @@ export default {
   },
   mutations: {
     SET_ADDSTATE (state, val) {
-      state.addstate = val
+      state.state = val
     }
   }
 }

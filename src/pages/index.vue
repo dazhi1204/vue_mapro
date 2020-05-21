@@ -1,7 +1,20 @@
 <template>
-	<div class="box">
-		<Nav></Nav>
-		<Map></Map>
+	<div class="content-box">
+		<el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+			<el-tab-pane label="轨迹查询" name="first">
+				<div class="box">
+					<Nav></Nav>
+					<Map></Map>
+				</div>
+			</el-tab-pane>
+			<el-tab-pane label="轨迹框选" name="second">
+				<div class="box">
+					<Qarea></Qarea>
+					<Area></Area>
+				</div>
+				
+			</el-tab-pane>
+		</el-tabs>
 	</div>
 </template>
 
@@ -12,7 +25,14 @@ export default {
 	components: {
 		// 页面组件
 		Nav: () => import('./headnav/query'),
-		Map: () => import('./map/map')
+		Map: () => import('./map/map'),
+		Area: () => import('./area/area'),
+		Qarea: () => import('./headnav/qarea')
+	},
+	data() {
+		return {
+			activeName: 'first'
+		};
 	},
 	computed: {
 		...mapGetters(['input']),
@@ -24,6 +44,11 @@ export default {
 	watch: {
 		// dataRange(val) {
 		// }
+	},
+	methods: {
+		handleClick(tab, event) {
+		//	console.log(tab, event);
+		}
 	}
 };
 </script>
@@ -34,4 +59,10 @@ export default {
 	display: flex;
 	flex-direction: column;
 }
+.content-box{
+	position: relative;
+}
+// /deep/.el-tabs--card>.el-tabs__header{
+// 	position: absolute;
+// }
 </style>
