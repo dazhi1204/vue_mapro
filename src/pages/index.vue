@@ -9,7 +9,6 @@
 			</el-tab-pane>
 			<el-tab-pane label="轨迹框选" name="second">
 				<div class="box">
-					<Qarea></Qarea>
 					<Area></Area>
 				</div>
 				
@@ -26,8 +25,7 @@ export default {
 		// 页面组件
 		Nav: () => import('./headnav/query'),
 		Map: () => import('./map/map'),
-		Area: () => import('./area/area'),
-		Qarea: () => import('./headnav/qarea')
+		Area: () => import('./area/area')
 	},
 	data() {
 		return {
@@ -44,6 +42,12 @@ export default {
 	watch: {
 		// dataRange(val) {
 		// }
+		
+		activeName: {
+			handler(val) {
+				this.$store.commit('queryModel/SET_ACTIVENAME', val);
+			}
+		},
 	},
 	methods: {
 		handleClick(tab, event) {

@@ -5,7 +5,7 @@ export default {
 		dateTime: '',
 		Hour: '',
 		period: '',
-		status:false
+		activeName:'first'
 
 	},
 	mutations: {
@@ -18,14 +18,12 @@ export default {
 		SET_HOUR(state, val) {
 			state.Hour = val
 		},
-		SET_HOUR(state, val) {
-			state.Hour = val
-		},
+		
 		SET_PERIOD(state, val) {
 			state.period = val
 		},
-		SET_STATUS(state, val) {
-			state.status = val
+		SET_ACTIVENAME(state, val) {
+			state.activeName = val
 		}
 	}
 }

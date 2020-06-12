@@ -99,14 +99,17 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['input', 'dateTime', 'Hour', 'period']),
+		...mapGetters(['input', 'dateTime', 'Hour', 'period','activeName']),
 		dataRange() {
-			const { input, dateTime, Hour, period } = this;
-			return { input, dateTime, Hour, period };
+			const { input, dateTime, Hour, period,activeName} = this;
+			return { input, dateTime, Hour, period,activeName };
 		}
 	},
 	watch: {
-		dataRange(val) {}
+		dataRange(val) {},
+		activeName(val){
+			this.createMap()
+		}
 	},
 	methods: {
 		//创建地图
@@ -114,6 +117,13 @@ export default {
 			this.map = new BMap.Map('map');
 			this.map.centerAndZoom(new BMap.Point(112.65033426887469, 26.932201308996287), 10);
 			this.map.enableScrollWheelZoom(true);
+			//优先加载地图
+			setTimeout(() => {
+				this.getHeatmap();
+			}, 200);
+			setTimeout(() => {
+				this.getPath();
+			}, 200);
 		},
 		//热力图
 		getHeatmap() {
@@ -219,13 +229,7 @@ export default {
 	},
 	mounted() {
 		this.createMap();
-		//优先加载地图
-		setTimeout(() => {
-			this.getHeatmap();
-		}, 2000);
-		setTimeout(() => {
-			this.getPath();
-		}, 2000);
+		
 	}
 };
 </script>

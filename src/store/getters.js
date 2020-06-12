@@ -3,7 +3,11 @@ const getters = {
 	dateTime: state => state.queryModel.dateTime,
 	Hour: state => state.queryModel.Hour,
 	period: state => state.queryModel.period,
-	status: state => state.queryModel.status
-
+	activeName: state => state.queryModel.activeName,
+	
+	//查询条件弹窗状态
+	queryStates:state => state.mapModel.queryStates,
+	userStates:state => state.mapModel.userStates,
+	userLists:state => state.mapModel.userLists,
 }
 export default getters

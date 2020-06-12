@@ -10,7 +10,9 @@
    false：不是多边形
    */
   var isPolygon = function(pointData){
+    console.log("pointData:",pointData)
     var pointsList = unique(pointData);
+    console.log("pointsList:",pointsList)
     if(pointsList.length < 3){
       return true;
     }

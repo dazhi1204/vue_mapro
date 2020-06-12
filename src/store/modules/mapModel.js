@@ -1,12 +1,20 @@
 export default {
   namespaced: true,
   state: {
-    networkType: '12'
+    queryStates: false,
+	userStates:false,
+	userLists:[]
 
   },
   mutations: {
-    SET_ADDSTATE (state, val) {
-      state.state = val
-    }
+    SET_QUERY(state, val) {
+    	state.queryStates = val
+    },
+	SET_USER(state, val) {
+		state.userStates = val
+	},
+	SET_USERLIST(state, val) {
+		state.userLists = val
+	},
   }
 }
