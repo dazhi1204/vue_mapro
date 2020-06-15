@@ -8,6 +8,8 @@ const getters = {
 	//查询条件弹窗状态
 	queryStates:state => state.mapModel.queryStates,
 	userStates:state => state.mapModel.userStates,
+	userInfoStates:state => state.mapModel.userInfoStates,
 	userLists:state => state.mapModel.userLists,
+	userInfo:state => state.mapModel.userInfo,
 }
 export default getters

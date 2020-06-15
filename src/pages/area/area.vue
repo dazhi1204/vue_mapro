@@ -1,9 +1,10 @@
 <template>
 	<div class="box">
 		<div id="cmap"></div>
-		<el-button class="reserve" type="primary" @click="DrawShow()">重置</el-button>
+		<el-button class="reserve" type="primary" @click="ClearAll()">重置</el-button>
 		<query v-if="queryState"></query>
 		<user v-if="userState && userList.length > 0"></user>
+		<userInfo v-if="userInfoState"></userInfo>
 	</div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
 	components: {
 		// 页面组件
 		query: () => import('../area/compoents/QueryModel'),
-		user: () => import('../area/compoents/UserListModel')
+		user: () => import('../area/compoents/UserListModel'),
+		userInfo: () => import('../area/compoents/UserInfoMedel')
 	},
 	data() {
 		return {
@@ -26,41 +28,37 @@ export default {
 			},
 			isOpend: true,
 			drawingManager: null,
-			queryState:false,
+			queryState: false,
 			userState: false,
+			userInfoState: false,
 			userList: []
 		};
 	},
 	computed: {
-		...mapGetters(['activeName', 'queryStates','userStates','userLists'])
+		...mapGetters(['activeName', 'queryStates', 'userStates', 'userLists', 'userInfoStates'])
 	},
 	watch: {
 		activeName(val) {
 			this.createMap();
 		},
+		//框选查询选项弹窗状态(用于点击关闭弹窗)
 		queryState: {
 			handler(val) {
-				this.$store.commit('mapModel/SET_QUERY', val);
+				this.$store.commit('mapModel/SET_QUERYSTATE', val);
 			}
 		},
-		userState:{
-			handler(val) {
-				this.$store.commit('mapModel/SET_USER', val);
-			}
+		//监听store值有变化时改变
+		queryStates(val) {
+			this.queryState = val;
 		},
-		userList:{
-			handler(val) {
-				this.$store.commit('mapModel/SET_USERLIST', val);
-			}
+		userStates(val) {
+			this.userState = val;
 		},
-		queryStates(val){
-			this.queryState = val
+		userLists(val) {
+			this.userList = val;
 		},
-		userStates(val){
-			this.userState = val
-		},
-		userLists(val){
-			this.userList = val
+		userInfoStates(val) {
+			this.userInfoState = val;
 		}
 	},
 	methods: {
@@ -70,11 +68,18 @@ export default {
 			//this.map.centerAndZoom(new BMap.Point(106.472739, 29.561524), 10);
 			this.map.centerAndZoom('武汉', 10);
 			this.map.enableScrollWheelZoom(true);
-
 			this.initdrawingManager();
-			this.Query();
 		},
-		Query() {
+		//重置
+		ClearAll() {
+			this.map.clearOverlays();
+			this.$store.commit('mapModel/SET_USERSTATE', false);
+			this.$store.commit('mapModel/SET_QUERYSTATE', false);
+			this.$store.commit('mapModel/SET_USERINFOSTATE', false);
+		},
+		//查询数据
+		Query(points) {
+			console.log(points);
 			var url = '/static/wuhan-car';
 			this.$http
 				.get(url)
@@ -190,35 +195,47 @@ export default {
 			});
 			this.drawingManager.addEventListener('overlaycomplete', this.overlaycomplete);
 		},
+		//
+
 		//获取框选描述点
 		overlaycomplete(e) {
 			//多边形选区
 			if (e.drawingMode == BMAP_DRAWING_POLYLINE || e.drawingMode == BMAP_DRAWING_POLYGON || e.drawingMode == BMAP_DRAWING_RECTANGLE) {
 				var path = e.overlay.getPath();
 				var polygonArr = new Array();
+				var arr = [];
 				for (var i in path) {
 					polygonArr.push({
 						longitude: path[i].lng,
 						latitude: path[i].lat
 					});
 				}
-				console.log(polygonArr);
+
 				this.drawingManager.close();
 				this.queryState = true;
+				this.Query(polygonArr);
 			}
 			//圆形选区
 			if (e.drawingMode == BMAP_DRAWING_CIRCLE) {
 				var Radius = e.overlay.getRadius();
 				var CenterPoint = e.overlay.getCenter().lng + ',' + e.overlay.getCenter().lat;
-				console.log('半径=' + Radius);
-				console.log('中心点=' + CenterPoint);
+				//console.log('半径=' + Radius);
+				//console.log('中心点=' + CenterPoint);
+				var point = {
+					radius: Radius,
+					center: CenterPoint
+				};
+
+				console.log(Math.PI * Radius * Radius);
+
 				this.drawingManager.close();
 				this.queryState = true;
+				this.Query(point);
 			}
 		}
 	},
 	mounted() {
-		//this.createMap();
+		this.createMap();
 	}
 };
 </script>

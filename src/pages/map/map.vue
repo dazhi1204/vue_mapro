@@ -99,16 +99,16 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(['input', 'dateTime', 'Hour', 'period','activeName']),
+		...mapGetters(['input', 'dateTime', 'Hour', 'period', 'activeName']),
 		dataRange() {
-			const { input, dateTime, Hour, period,activeName} = this;
-			return { input, dateTime, Hour, period,activeName };
+			const { input, dateTime, Hour, period, activeName } = this;
+			return { input, dateTime, Hour, period, activeName };
 		}
 	},
 	watch: {
 		dataRange(val) {},
-		activeName(val){
-			this.createMap()
+		activeName(val) {
+			this.createMap();
 		}
 	},
 	methods: {
@@ -229,7 +229,6 @@ export default {
 	},
 	mounted() {
 		this.createMap();
-		
 	}
 };
 </script>

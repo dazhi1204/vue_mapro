@@ -1,13 +1,13 @@
 <template>
 	<div class="list">
 		<div class="title">
-			<span>框选内轨迹用户列表</span>
+			<span>用户详情</span>
 			<i class="el-icon-circle-close  close" @click="close"></i>
 		</div>
 		<div class="content">
-			<div class="content_list" v-for="(item, i) in userLists" @click="QueryInfo(item, i)" :class="{ current: i == inx }">
-				<li>{{ item.date }}</li>
-				<li>{{ item.name }}</li>
+			<div class="content_list">
+				<li>{{ userInfo.date }}</li>
+				<li>{{ userInfo.name }}</li>
 			</div>
 		</div>
 	</div>
@@ -17,24 +17,16 @@
 import { mapGetters } from 'vuex';
 export default {
 	data() {
-		return {
-			inx: -1
-		};
+		return {};
 	},
 	computed: {
-		...mapGetters(['userLists'])
+		...mapGetters(['userInfo'])
 	},
 	watch: {},
 	mounted() {},
 	methods: {
 		close() {
 			this.$store.commit('mapModel/SET_USERINFOSTATE', false);
-			this.$store.commit('mapModel/SET_USERSTATE', false);
-		},
-		QueryInfo(data, index) {
-			this.inx = index;
-			this.$store.commit('mapModel/SET_USERINFOSTATE', true);
-			this.$store.commit('mapModel/SET_USERINFO', data);
 		}
 	}
 };
@@ -48,13 +40,10 @@ export default {
 	border: 1px solid #d4dbe1;
 	background-color: #ffffff;
 	top: 0;
-	right: 312px;
+	right: 0px;
 }
 li {
 	list-style: none;
-}
-.current {
-	color: red;
 }
 .title {
 	border-bottom: 1px solid #d4dbe1;
@@ -80,7 +69,6 @@ li {
 	display: flex;
 	flex-direction: row;
 	text-align: center;
-	cursor: pointer;
 	justify-content: space-between;
 }
 .content_list li {

@@ -45,7 +45,7 @@
 		</div>
 		<div class="btn">
 			<el-button type="success" plain @click="query">查询</el-button>
-			<el-button type="success" plain>取消</el-button>
+			<el-button type="success" plain @click="close">取消</el-button>
 		</div>
 	</div>
 </template>
@@ -89,29 +89,29 @@ export default {
 			endTime: '',
 			tableData: [
 				{
-					date: '2016-05-02',
-					name: '王小虎'
-				},
-				{
-					date: '2016-05-04',
-					name: '王小虎'
-				},
-				{
 					date: '2016-05-01',
-					name: '王小虎'
+					name: '王一虎'
+				},
+				{
+					date: '2016-05-02',
+					name: '王二虎'
 				},
 				{
 					date: '2016-05-03',
-					name: '王小虎'
+					name: '王三虎'
 				},
 				{
 					date: '2016-05-04',
-					name: '王小虎'
+					name: '王四虎'
 				},
 				{
-					date: '2016-05-01',
-					name: '王小虎'
-				}	
+					date: '2016-05-05',
+					name: '王五虎'
+				},
+				{
+					date: '2016-05-06',
+					name: '王六虎'
+				}
 			]
 		};
 	},
@@ -125,11 +125,12 @@ export default {
 			console.log(this.date);
 		},
 		close() {
-			this.$store.commit('mapModel/SET_QUERY', false);
+			this.$store.commit('mapModel/SET_QUERYSTATE', false);
 		},
+		//查询改变store的值
 		query() {
-			this.$store.commit('mapModel/SET_USER', true);
-			this.$store.commit('mapModel/SET_QUERY', false);
+			this.$store.commit('mapModel/SET_USERSTATE', true);
+			this.$store.commit('mapModel/SET_QUERYSTATE', false);
 			this.$store.commit('mapModel/SET_USERLIST', this.tableData);
 		}
 	}

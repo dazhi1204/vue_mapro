@@ -1,6 +1,6 @@
 <template>
 	<div class="content-box">
-		<el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+		<el-tabs v-model="activeName" :tab-position="tabPosition" type="card" @tab-click="handleClick">
 			<el-tab-pane label="轨迹查询" name="first">
 				<div class="box">
 					<Nav></Nav>
@@ -29,7 +29,8 @@ export default {
 	},
 	data() {
 		return {
-			activeName: 'first'
+			activeName: 'second',
+			tabPosition:'left'
 		};
 	},
 	computed: {
